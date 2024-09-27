@@ -1,102 +1,229 @@
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { StyleSheet, Image, Platform } from 'react-native';
+import React from 'react';
+import { View, Text, Image, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
+import { Ionicons } from '@expo/vector-icons'; // Assuming you're using Expo
 
-import { Collapsible } from '@/components/Collapsible';
-import { ExternalLink } from '@/components/ExternalLink';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-
-export default function TabTwoScreen() {
+export default function TabTwoScreen () {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={<Ionicons size={310} name="code-slash" style={styles.headerImage} />}>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Explore</ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText>{' '}
-          sets up the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version, press{' '}
-          <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files for
-          different screen densities
-        </ThemedText>
-        <Image source={require('@/assets/images/react-logo.png')} style={{ alignSelf: 'center' }} />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Custom fonts">
-        <ThemedText>
-          Open <ThemedText type="defaultSemiBold">app/_layout.tsx</ThemedText> to see how to load{' '}
-          <ThemedText style={{ fontFamily: 'SpaceMono' }}>
-            custom fonts such as this one.
-          </ThemedText>
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/versions/latest/sdk/font">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you inspect
-          what the user's current color scheme is, and so you can adjust UI colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText> component uses
-          the powerful <ThemedText type="defaultSemiBold">react-native-reanimated</ThemedText> library
-          to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The <ThemedText type="defaultSemiBold">components/ParallaxScrollView.tsx</ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <TouchableOpacity>
+          <Ionicons name="scan-outline" size={24} color="white" />
+        </TouchableOpacity>
+        <View style={styles.searchBar}>
+          <Ionicons name="search" size={20} color="#666" />
+          <Text style={styles.searchText}>Type to search</Text>
+        </View>
+        <TouchableOpacity>
+          <Ionicons name="options-outline" size={24} color="white" />
+        </TouchableOpacity>
+      </View>
+
+      <ScrollView>
+        <View style={styles.categoriesContainer}>
+          <TouchableOpacity style={styles.categoryButton}>
+            <Text style={styles.categoryButtonTextActive}>All activites</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.categoryButton}>
+            <Text style={styles.categoryButtonText}>With friends</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.categoryButton}>
+            <Text style={styles.categoryButtonText}>Solo play</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.categoryButton}>
+            <Text style={styles.categoryButtonText}>Favor</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.welcomeCard}>
+          <Text style={styles.welcomeTitle}>Welcome to Chicago</Text>
+          <Text style={styles.welcomeSubtitle}>Try to find interesting</Text>
+          <TouchableOpacity style={styles.closeButton}>
+            <Ionicons name="close" size={24} color="white" />
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.exploreSection}>
+          <Text style={styles.sectionTitle}>Explore</Text>
+          <View style={styles.venueGrid}>
+            {[1, 2, 3, 4].map((item) => (
+              <View key={item} style={styles.venueCard}>
+                <Image
+                  source={{ uri: 'https://via.placeholder.com/150' }}
+                  style={styles.venueImage}
+                />
+                <TouchableOpacity style={styles.favoriteButton}>
+                  <Ionicons name="heart-outline" size={20} color="white" />
+                </TouchableOpacity>
+                <View style={styles.venueInfo}>
+                  <Text style={styles.venueName}>Venue name</Text>
+                  <Text style={styles.venueType}>Virtual Reality game</Text>
+                  <View style={styles.venueDetails}>
+                    <Ionicons name="location-outline" size={16} color="#666" />
+                    <Text style={styles.venueDistance}>1.5 kms</Text>
+                    <Ionicons name="star" size={16} color="#FFD700" />
+                    <Text style={styles.venueRating}>4.8</Text>
+                  </View>
+                </View>
+              </View>
+            ))}
+          </View>
+        </View>
+      </ScrollView>
+
+      <View style={styles.bottomNav}>
+        <TouchableOpacity style={styles.navItem}>
+          <Ionicons name="stats-chart" size={24} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navItem}>
+          <Ionicons name="card" size={24} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity style={[styles.navItem, styles.navItemActive]}>
+          <Ionicons name="apps" size={24} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navItem}>
+          <Ionicons name="chatbubble-ellipses" size={24} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navItem}>
+          <Ionicons name="person" size={24} color="white" />
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
+  container: {
+    flex: 1,
+    backgroundColor: '#1C1C1E',
   },
-  titleContainer: {
+  header: {
     flexDirection: 'row',
-    gap: 8,
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    padding: 16,
+  },
+  searchBar: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#2C2C2E',
+    borderRadius: 20,
+    marginHorizontal: 10,
+    paddingHorizontal: 10,
+    height: 40,
+  },
+  searchText: {
+    color: '#666',
+    marginLeft: 10,
+  },
+  categoriesContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    paddingVertical: 10,
+  },
+  categoryButton: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
+  },
+  categoryButtonText: {
+    color: 'white',
+  },
+  categoryButtonTextActive: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  welcomeCard: {
+    backgroundColor: '#8E8EFF',
+    margin: 16,
+    borderRadius: 16,
+    padding: 16,
+  },
+  welcomeTitle: {
+    color: 'white',
+    fontSize: 24,
+    fontWeight: 'bold',
+  },
+  welcomeSubtitle: {
+    color: 'white',
+    fontSize: 16,
+  },
+  closeButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+  },
+  exploreSection: {
+    padding: 16,
+  },
+  sectionTitle: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 16,
+  },
+  venueGrid: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+  },
+  venueCard: {
+    width: '48%',
+    marginBottom: 16,
+    backgroundColor: '#2C2C2E',
+    borderRadius: 16,
+    overflow: 'hidden',
+  },
+  venueImage: {
+    width: '100%',
+    height: 120,
+  },
+  favoriteButton: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    borderRadius: 15,
+    padding: 5,
+  },
+  venueInfo: {
+    padding: 10,
+  },
+  venueName: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  venueType: {
+    color: '#666',
+    fontSize: 14,
+  },
+  venueDetails: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 5,
+  },
+  venueDistance: {
+    color: '#666',
+    fontSize: 12,
+    marginRight: 10,
+  },
+  venueRating: {
+    color: '#666',
+    fontSize: 12,
+  },
+  bottomNav: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    backgroundColor: '#2C2C2E',
+    paddingVertical: 10,
+  },
+  navItem: {
+    padding: 10,
+  },
+  navItemActive: {
+    backgroundColor: '#8E8EFF',
+    borderRadius: 20,
   },
 });
+
