@@ -1,55 +1,91 @@
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import { Camera, CameraType } from 'expo-camera';
-import * as Permissions from 'expo-permissions';
-import { Ionicons } from '@expo/vector-icons';
+import { Image, StyleSheet, Platform, Button, Text, TouchableOpacity, View } from 'react-native';
+// import ImageToBase64 from 'react-native-image-base64';
+import { HelloWave } from '@/components/HelloWave';
+import ParallaxScrollView from '@/components/ParallaxScrollView';
+import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
+import { useRef, useState } from 'react';
+import { CameraType, CameraView, useCameraPermissions,  } from 'expo-camera';
+import RNFetchBlob from 'rn-fetch-blob';
+import React from 'react';
 
-type PermissionStatus = 'granted' | 'denied' | 'undetermined';
-
-export default function HomeScreen(): JSX.Element {
-  const [hasPermission, setHasPermission] = useState<boolean | null>(null);
-
-  useEffect(() => {
-    (async () => {
-      const { status } = await Permissions.askAsync(Permissions.CAMERA);
-      setHasPermission(status === 'granted');
-    })();
-  }, []);
-
-  if (hasPermission === null) {
+export default function HomeScreen() {
+  const [facing, setFacing] = useState<CameraType>('back');
+  const [permission, requestPermission] = useCameraPermissions();
+  const [base64, setBase64] = useState("");
+  const ref = useRef(null)
+  if (!permission) {
+    // Camera permissions are still loading.
     return <View />;
   }
-  if (hasPermission === false) {
-    return <Text>No access to camera</Text>;
+
+  if (!permission.granted) {
+    // Camera permissions are not granted yet.
+    return (
+      <View style={styles.container}>
+        <Text style={styles.message}>We need your permission to show the camera</Text>
+        <Button onPress={requestPermission} title="grant permission" />
+      </View>
+    );
   }
+
+  function toggleCameraFacing() {
+    setFacing(current => (current === 'back' ? 'front' : 'back'));
+  }
+  const takePhoto = async () => {
+    if (ref.current) {
+      try {
+        let photo, base64 = await ref.current.takePictureAsync({
+          quality: 1, // Maximum quality
+          base64: true, // Include the base64 representation of the image
+        });
+        setBase64(base64.base64);  // Store the base64 image string
+        console.log("Photo taken:", base64.uri);
+        sendImageToServer(base64.base64)
+      } catch (error) {
+        console.error("Error taking photo:", error);
+      }
+    }
+  };
+
+  const sendImageToServer = async (base64: String) => {
+    if (!base64) {
+      console.log("No image to send");
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://192.168.0.155:8080/sendImage`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({"image":base64})  // Send base64 image as JSON
+      });
+
+      const contentType = response.headers.get('Content-Type');
+      const data = contentType && contentType.includes('application/json')
+        ? await response.json()
+        : await response.text();
+
+      console.log('Response Data:', data);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <Camera style={styles.camera} type={CameraType.back}>
-        <View style={styles.overlay}>
-          <View style={styles.topBar}>
-            <TouchableOpacity>
-              <Ionicons name="person" size={24} color="white" />
-            </TouchableOpacity>
-            <Text style={styles.title}>AR Camera</Text>
-            <TouchableOpacity>
-              <Ionicons name="add" size={24} color="white" />
-            </TouchableOpacity>
-          </View>
-          <View style={styles.arElements}>
-            <View style={styles.pinMarker}>
-              <Ionicons name="location" size={30} color="#4B0082" />
-            </View>
-          </View>
-          <View style={styles.bottomBar}>
-            {['grid', 'square', 'apps', 'chatbubble', 'person'].map((iconName) => (
-              <TouchableOpacity key={iconName} style={styles.iconButton}>
-                <Ionicons name={iconName as any} size={24} color="white" />
-              </TouchableOpacity>
-            ))}
-          </View>
+      <CameraView style={styles.camera} facing={facing} ref={ref}>
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
+            <Text style={styles.text}>Flip Camera</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={() => takePhoto()}>
+            <Text style={styles.text}>take photo</Text>
+          </TouchableOpacity>
         </View>
-      </Camera>
+      </CameraView>
     </View>
   );
 }
@@ -57,46 +93,29 @@ export default function HomeScreen(): JSX.Element {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
+  },
+  message: {
+    textAlign: 'center',
+    paddingBottom: 10,
   },
   camera: {
     flex: 1,
   },
-  overlay: {
+  buttonContainer: {
     flex: 1,
+    flexDirection: 'row',
     backgroundColor: 'transparent',
-    flexDirection: 'column' as const,
-    justifyContent: 'space-between',
+    margin: 64,
   },
-  topBar: {
-    flexDirection: 'row' as const,
-    justifyContent: 'space-between',
-    padding: 20,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-  },
-  title: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  arElements: {
+  button: {
     flex: 1,
-    alignItems: 'center' as const,
-    justifyContent: 'center',
+    alignSelf: 'flex-end',
+    alignItems: 'center',
   },
-  pinMarker: {
-    backgroundColor: 'rgba(255,255,255,0.7)',
-    borderRadius: 20,
-    padding: 5,
-  },
-  bottomBar: {
-    flexDirection: 'row' as const,
-    justifyContent: 'space-around',
-    padding: 20,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    alignItems: 'center' as const,
-  },
-  iconButton: {
-    padding: 10,
-    marginTop: 10,
+  text: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: 'white',
   },
 });
