@@ -1,76 +1,13 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // Assuming you're using Expo
+import MapView, { Overlay } from 'react-native-maps';
 
 export default function TabFiveScreen () {
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity>
-          <Ionicons name="scan-outline" size={24} color="white" />
-        </TouchableOpacity>
-        <View style={styles.searchBar}>
-          <Ionicons name="search" size={20} color="#666" />
-          <Text style={styles.searchText}>Type to search</Text>
-        </View>
-        <TouchableOpacity>
-          <Ionicons name="options-outline" size={24} color="white" />
-        </TouchableOpacity>
-      </View>
-
-      <ScrollView>
-        <View style={styles.categoriesContainer}>
-          <TouchableOpacity style={styles.categoryButton}>
-            <Text style={styles.categoryButtonTextActive}>All activites</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.categoryButton}>
-            <Text style={styles.categoryButtonText}>With friends</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.categoryButton}>
-            <Text style={styles.categoryButtonText}>Solo play</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.categoryButton}>
-            <Text style={styles.categoryButtonText}>Favor</Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.welcomeCard}>
-          <Text style={styles.welcomeTitle}>Welcome to Chicago</Text>
-          <Text style={styles.welcomeSubtitle}>Try to find interesting</Text>
-          <TouchableOpacity style={styles.closeButton}>
-            <Ionicons name="close" size={24} color="white" />
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.exploreSection}>
-          <Text style={styles.sectionTitle}>Explore</Text>
-          <View style={styles.venueGrid}>
-            {[1, 2, 3, 4].map((item) => (
-              <View key={item} style={styles.venueCard}>
-                <Image
-                  source={{ uri: 'https://via.placeholder.com/150' }}
-                  style={styles.venueImage}
-                />
-                <TouchableOpacity style={styles.favoriteButton}>
-                  <Ionicons name="heart-outline" size={20} color="white" />
-                </TouchableOpacity>
-                <View style={styles.venueInfo}>
-                  <Text style={styles.venueName}>Venue name</Text>
-                  <Text style={styles.venueType}>Virtual Reality game</Text>
-                  <View style={styles.venueDetails}>
-                    <Ionicons name="location-outline" size={16} color="#666" />
-                    <Text style={styles.venueDistance}>1.5 kms</Text>
-                    <Ionicons name="star" size={16} color="#FFD700" />
-                    <Text style={styles.venueRating}>4.8</Text>
-                  </View>
-                </View>
-              </View>
-            ))}
-          </View>
-        </View>
-      </ScrollView>
-
-    </SafeAreaView>
+    <View style={styles.container}>
+            <MapView userInterfaceStyle="dark" style={styles.map} />
+    </View>
   );
 };
 
@@ -98,6 +35,10 @@ const styles = StyleSheet.create({
   searchText: {
     color: '#666',
     marginLeft: 10,
+  },
+  map: {
+    width: '100%',
+    height: '100%',
   },
   categoriesContainer: {
     flexDirection: 'row',
