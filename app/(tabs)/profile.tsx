@@ -1,12 +1,12 @@
 import React , { useState} from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import BioScreen from '@/components/Bio';
 import { useNavigation } from '@react-navigation/native';
+import { useRouter } from 'expo-router';
 
 const ProfileScreen: React.FC = () => {
   const navigation = useNavigation();
-
+  const router = useRouter();
   // very real data
   const userData = {
     name: "Fedelica Toraka",
@@ -27,9 +27,9 @@ const ProfileScreen: React.FC = () => {
     { icon: 'log-out', text: 'Log out' , screen: 'BioScreen'},
   ];
 
-  const handleMenuPress = (screen: string) => {
-    navigation.navigate(screen);
-  };
+  // const handleMenuPress = (screen: string) => {
+  //   navigation.navigate(screen);
+  // };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -74,7 +74,7 @@ const ProfileScreen: React.FC = () => {
 
         <View style={styles.menuItemsContainer}>
           {menuItems.map((item, index) => (
-            <TouchableOpacity key={index} style={styles.menuItem} onPress={() => handleMenuPress(item.screen)}>
+            <TouchableOpacity key={index} style={styles.menuItem} onPress={() => router.push('/Bio')}>
               <View style={styles.menuItemLeft}>
                 <Feather name={item.icon as any} size={20} color="#8E8E93" />
                 <Text style={styles.menuItemText}>{item.text}</Text>
