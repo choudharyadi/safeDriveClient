@@ -1,12 +1,33 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // Assuming you're using Expo
-import MapView, { Overlay } from 'react-native-maps';
+import MapView, { Overlay, Polyline } from 'react-native-maps';
 
-export default function TabFiveScreen () {
+export default function TabFiveScreen() {
   return (
     <View style={styles.container}>
-            <MapView userInterfaceStyle="dark" style={styles.map} />
+      <MapView userInterfaceStyle="dark" style={styles.map} >
+        <Polyline
+          coordinates={[
+            { latitude: 37.8025259, longitude: -122.4351431 },
+            { latitude: 37.7896386, longitude: -122.421646 },
+            { latitude: 37.7665248, longitude: -122.4161628 },
+            { latitude: 37.7734153, longitude: -122.4577787 },
+            { latitude: 37.7948605, longitude: -122.4596065 },
+            { latitude: 37.8025259, longitude: -122.4351431 },
+          ]}
+          strokeColor="#000" // fallback for when `strokeColors` is not supported by the map-provider
+          strokeColors={[
+            '#7F0000',
+            '#00000000', // no color, creates a "long" gradient between the previous and next coordinate
+            '#B24112',
+            '#E5845C',
+            '#238C23',
+            '#7F0000',
+          ]}
+          strokeWidth={6}
+        />
+      </MapView>
     </View>
   );
 };
