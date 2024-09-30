@@ -21,7 +21,7 @@ export default function TabLayout() {
         <Tabs.Screen
           name="index"
           options={{
-            title: 'Home',
+            title: 'Index',
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
             ),
@@ -37,20 +37,11 @@ export default function TabLayout() {
           }}
         />
         <Tabs.Screen
-          name="profile"
+          name="camera"
           options={{
-            title: 'profile',
+            title: 'camera',
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-            ),
-          }}
-        />
-        <Tabs.Screen
-          name="setting"
-          options={{
-            title: 'setting',
-            tabBarIcon: ({ color, focused }) => (
-              <TabBarIcon name={focused ? 'chatbubble' : 'chatbubble-outline'} color={color} />
             ),
           }}
         />
@@ -58,6 +49,15 @@ export default function TabLayout() {
           name="map"
           options={{
             title: 'map',
+            tabBarIcon: ({ color, focused }) => (
+              <TabBarIcon name={focused ? 'map' : 'map-outline'} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="profile"
+          options={{
+            title: 'profile',
             tabBarIcon: ({ color, focused }) => (
               <TabBarIcon name={focused ?  'person' : 'person-outline' } color={color} />
             ),

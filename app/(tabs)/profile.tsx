@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, SafeAreaView, TouchableOpacity, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons'; // Assuming you're using Expo
 
-export default function TabThreeScreen () {
+export default function Profile () {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>

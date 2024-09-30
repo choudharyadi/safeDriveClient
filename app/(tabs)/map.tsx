@@ -3,7 +3,7 @@ import { View, Text, Image, StyleSheet, SafeAreaView, TouchableOpacity, ScrollVi
 import { Ionicons } from '@expo/vector-icons'; // Assuming you're using Expo
 import MapView, { Overlay } from 'react-native-maps';
 
-export default function TabFiveScreen () {
+export default function Map () {
   return (
     <View style={styles.container}>
             <MapView userInterfaceStyle="dark" style={styles.map} />
