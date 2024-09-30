@@ -69,7 +69,7 @@ export default function MyTabBar({ state, descriptors, navigation }) {
       position:'absolute',
       bottom: -5,
       paddingBottom: 5,
-      marginVertical: 40,
+      marginVertical: 30,
       marginHorizontal: 10,
       paddingHorizontal: 15
     },
