@@ -19,20 +19,25 @@ export default function Setting () {
       </View>
 
       <ScrollView>
-        <View style={styles.categoriesContainer}>
-          <TouchableOpacity style={styles.categoryButton}>
-            <Text style={styles.categoryButtonTextActive}>All activites</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.categoryButton}>
-            <Text style={styles.categoryButtonText}>With friends</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.categoryButton}>
-            <Text style={styles.categoryButtonText}>Solo play</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.categoryButton}>
-            <Text style={styles.categoryButtonText}>Favor</Text>
-          </TouchableOpacity>
-        </View>
+        <ScrollView horizontal>
+          <View style={styles.categoriesContainer}>
+            <TouchableOpacity style={styles.categoryButton}>
+              <Text style={styles.categoryButtonTextActive}>All activites</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.categoryButton}>
+              <Text style={styles.categoryButtonText}>With friends</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.categoryButton}>
+              <Text style={styles.categoryButtonText}>Solo play</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.categoryButton}>
+              <Text style={styles.categoryButtonText}>Favor</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.categoryButton}>
+              <Text style={styles.categoryButtonText}>Adithya</Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
 
         <View style={styles.welcomeCard}>
           <Text style={styles.welcomeTitle}>Welcome to Chicago</Text>
