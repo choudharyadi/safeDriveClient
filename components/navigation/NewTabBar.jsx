@@ -86,8 +86,8 @@ export default function MyTabBar({ state, descriptors, navigation }) {
       alignItems: 'center',
     },
     centerButtonGradient: {
-      width: 60,
-      height: 60,
+      width: 55,
+      height: 55,
       borderRadius: 30,
       justifyContent: 'center',
       alignItems: 'center',

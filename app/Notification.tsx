@@ -1,7 +1,8 @@
 import React from 'react';
-import { View, Text, ScrollView, StyleSheet, Image } from 'react-native';
+import { View, Text, ScrollView, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ArrowLeft } from 'lucide-react-native';
+import { useRouter } from 'expo-router';
 
 interface NotificationItem {
   type: 'invitation' | 'invitation_cancelled' | 'booking_confirmed' | 'booking_cancelled';
@@ -42,11 +43,16 @@ const NotificationCard: React.FC<{ item: NotificationItem }> = ({ item }) => (
 );
 
 const NotificationsScreen: React.FC = () => {
+  const router = useRouter();
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <ArrowLeft color="#fff" size={24} />
+        <TouchableOpacity style={styles.backButton} onPress={() => router.back()} >
+          <ArrowLeft color="#fff" size={24} />
+        </TouchableOpacity>
         <Text style={styles.headerTitle}>Notifications</Text>
+        <View style={{width: 24}} />
       </View>
       <ScrollView style={styles.scrollView}>
         {Object.entries(notifications).map(([date, items]) => (
@@ -65,18 +71,21 @@ const NotificationsScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1C1C1E',
+    backgroundColor: '#171721',
   },
   header: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 16,
+    padding: 10,
+  },
+  backButton: {
+    padding: 5,
   },
   headerTitle: {
     color: '#fff',
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
-    marginLeft: 16,
   },
   scrollView: {
     flex: 1,
@@ -85,30 +94,31 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   sectionTitle: {
-    color: '#8E8E93',
-    fontSize: 16,
-    marginLeft: 16,
+    color: '#888',
+    fontSize: 12,
+    marginLeft: 20,
     marginBottom: 8,
+    textTransform: 'uppercase',
   },
   card: {
     flexDirection: 'row',
     alignItems: 'center',
-    padding: 16,
-    backgroundColor: '#2C2C2E',
-    marginHorizontal: 16,
+    padding: 15,
+    backgroundColor: '#22222E',
+    marginHorizontal: 20,
     marginVertical: 4,
-    borderRadius: 12,
+    borderRadius: 10,
   },
   iconContainer: {
-    width: 40,
-    height: 40,
-    borderRadius: 8,
-    backgroundColor: '#3A3A3C',
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: '#2A2A36',
     justifyContent: 'center',
     alignItems: 'center',
   },
   icon: {
-    fontSize: 20,
+    fontSize: 18,
   },
   contentContainer: {
     flex: 1,
@@ -120,11 +130,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   dateTime: {
-    color: '#8E8E93',
+    color: '#888',
     fontSize: 14,
   },
   timeAgo: {
-    color: '#8E8E93',
+    color: '#888',
     fontSize: 12,
   },
 });
