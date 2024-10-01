@@ -1,11 +1,9 @@
 import React , { useState} from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, SafeAreaView, ScrollView } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
 import { useRouter } from 'expo-router';
 
 const ProfileScreen: React.FC = () => {
-  const navigation = useNavigation();
   const router = useRouter();
   // very real data
   const userData = {
@@ -21,29 +19,28 @@ const ProfileScreen: React.FC = () => {
 
   const menuItems = [
     { icon: 'info', text: 'Bio', screen: 'Bio' },
-    { icon: 'heart', text: 'Favourits' , screen: 'BioScreen'},
+    { icon: 'heart', text: 'Favourits', screen: 'Notification' },
     { icon: 'users', text: 'Friends', screen: 'BioScreen' },
-    { icon: 'credit-card', text: 'Wallet' , screen: 'BioScreen'},
-    { icon: 'log-out', text: 'Log out' , screen: 'BioScreen'},
+    { icon: 'credit-card', text: 'Wallet', screen: 'BioScreen' },
+    { icon: 'log-out', text: 'Log out', screen: 'BioScreen' },
   ];
-
-  // const handleMenuPress = (screen: string) => {
-  //   navigation.navigate(screen);
-  // };
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        <View style={styles.header}>
-          <TouchableOpacity style={styles.settingsButton}>
-            <Feather name="settings" size={24} color="white" />
+      <View style={styles.header}>
+          <TouchableOpacity style={styles.settingsButton} onPress={() => router.push('/Settings')}>
+            <Feather name="settings" size={24} color="white"/>
           </TouchableOpacity>
-          <View style={styles.notificationContainer}>
+          <TouchableOpacity 
+            style={styles.notificationContainer} 
+            onPress={() => router.push('/Notification')}
+          >
             <Feather name="bell" size={24} color="white" />
             <View style={styles.notificationBadge}>
               <Text style={styles.notificationText}>{userData.notifications}</Text>
             </View>
-          </View>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.profileInfo}>
@@ -74,7 +71,7 @@ const ProfileScreen: React.FC = () => {
 
         <View style={styles.menuItemsContainer}>
           {menuItems.map((item, index) => (
-            <TouchableOpacity key={index} style={styles.menuItem} onPress={() => router.push('/Bio')}>
+            <TouchableOpacity key={index} style={styles.menuItem} onPress={() => router.push(`/${item.screen}` as string)}>
               <View style={styles.menuItemLeft}>
                 <Feather name={item.icon as any} size={20} color="#8E8E93" />
                 <Text style={styles.menuItemText}>{item.text}</Text>
