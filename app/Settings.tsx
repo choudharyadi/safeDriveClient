@@ -22,7 +22,7 @@ const SettingsScreen: React.FC = () => {
             <Feather name="arrow-left" size={24} color="white" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Settings</Text>
-          <View style={{ width: 24 }} /> {/* Empty view for spacing */}
+          <View style={{ width: 24 }} /> 
         </View>
 
         <View style={styles.settingsContainer}>

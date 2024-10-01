@@ -19,7 +19,7 @@ const ProfileScreen: React.FC = () => {
 
   const menuItems = [
     { icon: 'info', text: 'Bio', screen: 'Bio' },
-    { icon: 'heart', text: 'Favourits', screen: 'Notification' },
+    { icon: 'heart', text: 'Favourits', screen: 'Notification' }, 
     { icon: 'users', text: 'Friends', screen: 'BioScreen' },
     { icon: 'credit-card', text: 'Wallet', screen: 'BioScreen' },
     { icon: 'log-out', text: 'Log out', screen: 'BioScreen' },
@@ -29,7 +29,9 @@ const ProfileScreen: React.FC = () => {
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
       <View style={styles.header}>
-          <TouchableOpacity style={styles.settingsButton} onPress={() => router.push('/Settings')}>
+          <TouchableOpacity style={styles.settingsButton} 
+          onPress={() => router.push('/Settings')}
+          >
             <Feather name="settings" size={24} color="white"/>
           </TouchableOpacity>
           <TouchableOpacity 
