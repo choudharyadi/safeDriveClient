@@ -78,12 +78,9 @@ export default function CameraScreen() {
     <View style={styles.container}>
       <CameraView style={styles.camera} facing={facing} ref={ref}>
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button} onPress={toggleCameraFacing}>
-            <Text style={styles.text}>Flip Camera</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => takePhoto()}>
-            <Text style={styles.text}>take photo</Text>
-          </TouchableOpacity>
+        <View style={styles.buttonContainer2}>
+        
+        </View>
         </View>
       </CameraView>
     </View>
@@ -101,12 +98,22 @@ const styles = StyleSheet.create({
   },
   camera: {
     flex: 1,
+    flexDirection: "column-reverse"
   },
   buttonContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    backgroundColor: 'transparent',
-    margin: 64,
+    
+    backgroundColor: '#171721',
+    flexDirection: "column-reverse",
+    margin: 0,
+    height: 400,
+    borderRadius: 45
+  },
+  buttonContainer2: {
+    
+    backgroundColor: '#FF4081',
+    margin: 0,
+    height: 300,
+    borderRadius: 45
   },
   button: {
     flex: 1,
