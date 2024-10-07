@@ -34,6 +34,8 @@ export default function RootLayout() {
         <Stack.Screen name="Bio" options={{ headerShown: false }} />
         <Stack.Screen name="Notification" options={{ headerShown: false }} />
         <Stack.Screen name="Settings" options={{ headerShown: false }} />
+        <Stack.Screen name="DetailedStats" options={{ headerShown: false }} />
+        <Stack.Screen name="Info" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );

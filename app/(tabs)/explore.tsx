@@ -6,13 +6,12 @@ import {
   Text,
   View,
   ScrollView,
-  TouchableOpacity,
+  TouchableOpacity, 
   Dimensions
 } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 
-const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 
 const ExploreScreen: React.FC = () => {
@@ -22,7 +21,7 @@ const ExploreScreen: React.FC = () => {
     <SafeAreaView style={styles.safeAreaView}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
-          <TouchableOpacity style={styles.headerIcon} onPress={() => router.push('/Information')}>
+          <TouchableOpacity style={styles.headerIcon} onPress={() => router.push('/Info')}>
             <Feather name="info" size={24} color="white" />
           </TouchableOpacity>
 
@@ -35,8 +34,6 @@ const ExploreScreen: React.FC = () => {
               <Text style={styles.notificationText}>25</Text>
             </View>
           </TouchableOpacity>
-
-
         </View>
 
         <View style={styles.carCard}>
@@ -59,61 +56,36 @@ const ExploreScreen: React.FC = () => {
           </View>
         </View>
 
-        <View style={styles.profileAndMapSection}>
-          <TouchableOpacity style={styles.profileCard} onPress={() => router.push('/Profile')}>
-            <Image source={require('../../resources/images/man.png')} style={styles.avatarImage} />
-            <Text style={styles.personNameText}>Jane Cooper</Text>
-            <Text style={styles.personAmountText}>$ 4,253</Text>
-          </TouchableOpacity>
-          <View style={styles.mapCard}>
-            <Image style={styles.mapImage} source={require('../../resources/images/map.png')} />
+        <View style={styles.statsCard}>
+          <Text style={styles.statsTitle}>Driving Stats</Text>
+          <View style={styles.statsRow}>
+            <View style={styles.statItem}>
+              <Feather name="clock" size={24} color="#787878" />
+              <Text style={styles.statValue}>12h 30m</Text>
+              <Text style={styles.statLabel}>Time Focused</Text>
+            </View>
+            <View style={styles.statItem}>
+              <Feather name="map" size={24} color="#787878" />
+              <Text style={styles.statValue}>523 km</Text>
+              <Text style={styles.statLabel}>Total Distance</Text>
+            </View>
+            <View style={styles.statItem}>
+              <Feather name="trending-up" size={24} color="#787878" />
+              <Text style={styles.statValue}>65 km/h</Text>
+              <Text style={styles.statLabel}>Avg Speed</Text>
+            </View>
           </View>
+          <TouchableOpacity 
+            style={styles.detailedStatsButton}
+            onPress={() => router.push('/DetailedStats')}
+          >
+            <Text style={styles.detailedStatsButtonText}>View Detailed Stats</Text>
+            <Feather name="chevron-right" size={24} color="white" />
+          </TouchableOpacity>
         </View>
 
-        <View style={styles.moreCarsSection}>
-          <View style={styles.moreCarsTextCard}>
-            <Text style={styles.moreCarsText}>More Cars</Text>
-            <Feather name="more-horizontal" size={24} color="#d4d4d4" />
-          </View>
-          <TouchableOpacity style={styles.carNameCard}>
-            <View style={styles.carNameDetailsCard}>
-              <Text style={styles.carNameTextBottomCard}>Corolla Cross</Text>
-              <View style={styles.carInfo}>
-                <View style={styles.carDetailsData}>
-                  <Feather name="map-pin" size={16} color="white" />
-                  <Text style={styles.carDetailsBottomText}>{" > 4 KM"}</Text>
-                </View>
-                <View style={styles.carDetailsSpaceView} />
-                <View style={styles.carDetailsData}>
-                  <Feather name="droplet" size={16} color="white" />
-                  <Text style={styles.carDetailsBottomText}>{" 50 L"}</Text>
-                </View>
-              </View>
-            </View>
-            <View style={styles.arrowBg}>
-              <Feather name="chevron-right" size={24} color="#282931" />
-            </View>
-          </TouchableOpacity>
-          <View style={styles.line} />
-          <TouchableOpacity style={styles.carNameCard}>
-            <View style={styles.carNameDetailsCard}>
-              <Text style={styles.carNameTextBottomCard}>Ionic 5</Text>
-              <View style={styles.carInfo}>
-                <View style={styles.carDetailsData}>
-                  <Feather name="map-pin" size={16} color="white" />
-                  <Text style={styles.carDetailsBottomText}>{" > 8 KM"}</Text>
-                </View>
-                <View style={styles.carDetailsSpaceView} />
-                <View style={styles.carDetailsData}>
-                  <Feather name="battery" size={16} color="white" />
-                  <Text style={styles.carDetailsBottomText}>{" 80%"}</Text>
-                </View>
-              </View>
-            </View>
-            <View style={styles.arrowBg}>
-              <Feather name="chevron-right" size={24} color="#282931" />
-            </View>
-          </TouchableOpacity>
+        <View style={styles.mapCard}>
+          <Image style={styles.mapImage} source={require('../../resources/images/map.png')} />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -207,41 +179,57 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'white',
   },
-  profileAndMapSection: {
+  statsCard: {
+    backgroundColor: '#22222E',
+    borderRadius: 20,
+    padding: 20,
+    marginBottom: 20,
+  },
+  statsTitle: {
+    fontFamily: 'Barlow-SemiBold',
+    fontSize: 18,
+    color: 'white',
+    marginBottom: 15,
+  },
+  statsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginBottom: 20,
   },
-  profileCard: {
-    width: '45%',
-    backgroundColor: '#22222E',
-    borderRadius: 20,
-    padding: 20,
-    justifyContent: 'space-around',
+  statItem: {
     alignItems: 'center',
   },
-  avatarImage: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    marginBottom: 10,
-  },
-  personNameText: {
-    fontFamily: 'Barlow-Medium',
+  statValue: {
+    fontFamily: 'Barlow-Bold',
     fontSize: 18,
     color: 'white',
-    marginBottom: 5,
+    marginTop: 5,
   },
-  personAmountText: {
-    fontFamily: 'Barlow-Bold',
+  statLabel: {
+    fontFamily: 'Barlow-Regular',
+    fontSize: 14,
+    color: '#787878',
+    marginTop: 5,
+  },
+  detailedStatsButton: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#FF4081',
+    borderRadius: 10,
+    padding: 15,
+  },
+  detailedStatsButtonText: {
+    fontFamily: 'Barlow-SemiBold',
     fontSize: 16,
-    color: '#FF4081',
+    color: 'white',
   },
   mapCard: {
-    width: '45%',
+    width: '100%',
     height: 150,
     borderRadius: 20,
     overflow: 'hidden',
+    marginBottom: 20,
   },
   mapImage: {
     width: '100%',
