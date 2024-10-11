@@ -6,7 +6,10 @@ import MapView, { Overlay, Polyline } from 'react-native-maps';
 export default function TabFiveScreen() {
   return (
     <View style={styles.container}>
-      <MapView userInterfaceStyle="dark" style={styles.map} >
+      <MapView userInterfaceStyle="dark" style={styles.map} showsCompass showsBuildings showsTraffic >
+        <View>
+
+        </View>
         <Polyline
           coordinates={[
             { latitude: 37.8025259, longitude: -122.4351431 },
