@@ -1,27 +1,38 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Image, StyleSheet, Platform, Button, Text, TouchableOpacity, View, Modal } from 'react-native';
 import { CameraType, CameraView, useCameraPermissions } from 'expo-camera';
-// import RNFetchBlob from 'rn-fetch-blob';
 
 export default function CameraScreen() {
   const [facing, setFacing] = useState<CameraType>('back');
   const [permission, requestPermission] = useCameraPermissions();
-  const [base64, setBase64] = useState<string>("");
-  const [text, setText] = useState<string>("Loading the face model...");
+  const [currentText, setCurrentText] = useState<string>("Loading the face model...");
+  const [currentAdditionalText, setCurrentAdditionalText] = useState<string | null>(null); // For two texts
+  const [isTextLooping, setIsTextLooping] = useState(false);
 
   const ref = useRef(null);
   const [pressedButton, setPressedButton] = useState<string | null>(null);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  // Array of texts to cycle through with respective display durations (in milliseconds)
+  const texts = [
+    { text: "Loading the face model...", duration: 200 },
+    { text: "Analyzing your face", duration: 300 },
+    { text: "Let's roll", duration: 150 },
+    { text: "Drive Score: 100 ", duration: 400, additionalText: "Alerts : 0" },
+    { text: "Drive Score: 98 ", duration: 200, additionalText: "Alerts : 0" }
+  ];
 
   const handleButtonPressIn = (buttonName: string) => {
     setPressedButton(buttonName);
-    // setTimeout()
     setModalVisible(true);
+    
+    // Start text looping when the button is pressed
+    setIsTextLooping(true);
   };
 
   const handleButtonPressOut = () => {
     setPressedButton(null);
   };
-  const [modalVisible, setModalVisible] = useState(false);
 
   const openModal = () => {
     setModalVisible(true);
@@ -34,6 +45,29 @@ export default function CameraScreen() {
   const isPressed = (buttonName: string) => {
     return buttonName === pressedButton;
   };
+
+  useEffect(() => {
+    if (isTextLooping) {
+      let currentIndex = 0;
+
+      const updateText = () => {
+        const { text, duration, additionalText } = texts[currentIndex];
+        setCurrentText(text);
+        setCurrentAdditionalText(additionalText || null);
+
+        currentIndex += 1;
+
+        if (currentIndex < texts.length) {
+          setTimeout(updateText, duration);  // Schedule the next text update
+        } else {
+          setIsTextLooping(false);  // Stop the loop once we reach the end
+        }
+      };
+
+      updateText();  // Start the text loop
+
+    }
+  }, [isTextLooping]);
 
   if (!permission) {
     return <View />;
@@ -52,78 +86,40 @@ export default function CameraScreen() {
     setFacing((current) => (current === 'back' ? 'front' : 'back'));
   }
 
-  // const takePhoto = async () => {
-  //   if (ref.current) {
-  //     try {
-  //       const photo = await ref.current.takePictureAsync({
-  //         quality: 1,
-  //         base64: true,
-  //       });
-  //       setBase64(photo.base64 || "");  // Ensure base64 is defined
-  //       console.log("Photo taken:", photo.uri);
-  //       sendImageToServer(photo.base64 || "");
-  //     } catch (error) {
-  //       console.error("Error taking photo:", error);
-  //     }
-  //   }
-  // };
-
-  // const sendImageToServer = async (base64: string) => {
-  //   if (!base64) {
-  //     console.log("No image to send");
-  //     return;
-  //   }
-
-  //   try {
-  //     const response = await fetch(`http://192.168.0.155:8080/sendImage`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({ image: base64 }),
-  //     });
-
-  //     const contentType = response.headers.get('Content-Type');
-  //     const data = contentType && contentType.includes('application/json')
-  //       ? await response.json()
-  //       : await response.text();
-
-  //     console.log('Response Data:', data);
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //   }
-  // };
-
   return (
     <View style={styles.container}>
       <CameraView style={styles.camera} facing={facing} ref={ref}>
 
-        
         <View style={styles.buttonContainer2}>
           <View style={styles.accContainer}>
             {pressedButton != null ?
             
-            <Text style={styles.textP}>
-              {text}
-            </Text>
+            <View style={styles.textContainer}>
+              <Text style={styles.textP}>
+                {currentText}
+              </Text>
+              {currentAdditionalText && (
+                <Text style={styles.textP}>
+                  {currentAdditionalText}
+                </Text>
+              )}
+            </View>
             :
             <TouchableOpacity
-            style={[
-              styles.button,
-              styles.infoButton,
-              isPressed('info') && styles.buttonPressed,
-            ]}
-            onPressIn={() => handleButtonPressIn('info')}
-            onPressOut={handleButtonPressOut}
-          >
-            <Text style={styles.buttonText}>Start Drive</Text>
-          </TouchableOpacity>
-
+              style={[
+                styles.button,
+                styles.infoButton,
+                isPressed('info') && styles.buttonPressed,
+              ]}
+              onPressIn={() => handleButtonPressIn('info')}
+              onPressOut={handleButtonPressOut}
+            >
+              <Text style={styles.buttonText}>Start Drive</Text>
+            </TouchableOpacity>
             }
             
           </View>
         </View>
-
       </CameraView>
       <Modal
         animationType="fade"
@@ -134,16 +130,13 @@ export default function CameraScreen() {
         <View style={styles.overlay}>
           <View style={styles.modalView}>
             <Text style={styles.modalTitle}>Warning</Text>
-            <Text style={styles.modalText}>You are distracted driving. Bring your Attention back to the road </Text>
+            <Text style={styles.modalText}>You are distracted driving. Bring your attention back to the road.</Text>
             <TouchableOpacity onPress={closeModal} style={styles.closeButton}>
               <Text style={styles.buttonText}>Dismiss</Text>
             </TouchableOpacity>
           </View>
         </View>
       </Modal>
-
-
-
     </View>
   );
 }
@@ -206,8 +199,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     margin: 0,
     height: 270,
-    // alignContent: "center",
-    // justifyContent: "center",
     borderRadius: 45,
   },
   buttonPressed: {
@@ -222,6 +213,11 @@ const styles = StyleSheet.create({
     color: '#4a3b8f',
     fontSize: 24,
     fontWeight: 'bold',
+  },
+  textContainer: {
+    flexDirection: 'row',  // Align texts side by side
+    justifyContent: 'center',
+    width: 350,  // Fixed width for the container to avoid width changes
   },
   modalView: {
     width: '80%',
@@ -253,8 +249,4 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
   },
-  // buttonText: {
-  //   color: 'white',
-  //   fontWeight: 'bold',
-  // },
 });

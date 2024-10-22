@@ -77,18 +77,18 @@ const DetailedStatsScreen: React.FC = () => {
           <View style={styles.statsRow}>
             <View style={styles.statItem}>
               <Feather name="zap" size={24} color="#787878" />
-              <Text style={styles.statValue}>85%</Text>
-              <Text style={styles.statLabel}>Efficiency</Text>
+              <Text style={styles.statValue}>98</Text>
+              <Text style={styles.statLabel}>Drive Score</Text>
             </View>
             <View style={styles.statItem}>
-              <Feather name="activity" size={24} color="#787878" />
+              <Feather name="layers" size={24} color="#787878" />
               <Text style={styles.statValue}>32</Text>
-              <Text style={styles.statLabel}>Trips</Text>
+              <Text style={styles.statLabel}>Drives</Text>
             </View>
             <View style={styles.statItem}>
-              <Feather name="dollar-sign" size={24} color="#787878" />
-              <Text style={styles.statValue}>$145</Text>
-              <Text style={styles.statLabel}>Fuel Savings</Text>
+              <Feather name="alert-triangle" size={24} color="#787878" />
+              <Text style={styles.statValue}>2</Text>
+              <Text style={styles.statLabel}>Alerts Given</Text>
             </View>
           </View>
         </View>

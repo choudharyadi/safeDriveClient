@@ -15,17 +15,17 @@ interface NotificationItem {
 
 const notifications: { [key: string]: NotificationItem[] } = {
   Today: [
-    { type: 'invitation', title: 'You', date: '3 Alerts', time: 'Drive Score 74', icon: '🔴', timeAgo: '3m ago' },
-    { type: 'invitation_cancelled', title: 'Rahul', date: '0 Alerts', time: 'Drive Score 98', icon: '🟢', timeAgo: '4h ago' },
+    { type: 'invitation', title: 'VR Realm 247', date: '29 Oct', time: '07:00 PM', icon: '🏛️', timeAgo: '3m ago' },
+    { type: 'invitation_cancelled', title: 'Level 57', date: '03 Oct', time: '05:00 PM', icon: '🎮', timeAgo: '2h ago' },
   ],
   Recently: [
-    { type: 'booking_confirmed', title: 'Aditya', date: '0 Alerts', time: 'Drive Score 95', icon: '🟢', timeAgo: '2 days ago' },
-    { type: 'booking_cancelled', title: 'You', date: '0 Alerts', time: 'Drive Score 98', icon: '🟢', timeAgo: '4 days ago' },
-    { type: 'booking_confirmed', title: 'You', date: '2 Alerts', time: 'Drive Score 75', icon: '🔴', timeAgo: '5 days ago' },
+    { type: 'booking_confirmed', title: 'WE-R', date: '03 Oct', time: '05:00 PM', icon: '🌅', timeAgo: '3 days ago' },
+    { type: 'booking_cancelled', title: 'Level 57', date: '03 Oct', time: '05:00 PM', icon: '🏝️', timeAgo: '4 days ago' },
+    { type: 'booking_confirmed', title: 'Golden Gate', date: '01 Oct', time: '07:00 PM', icon: '🌉', timeAgo: '5 days ago' },
   ],
   'Last week': [
-    { type: 'invitation', title: 'Rahul', date: '1 Alerts', time: 'Drive Score 86', icon: '🟡', timeAgo: '10 days ago' },
-    { type: 'booking_confirmed', title: 'Rahul', date: '0 Alerts', time: 'Drive Score 95', icon: '🟢', timeAgo: '12 days ago' },
+    { type: 'invitation', title: 'VR Realm 247', date: '29 Oct', time: '07:00 PM', icon: '🎭', timeAgo: '12 days ago' },
+    { type: 'booking_confirmed', title: 'VR Realm 247', date: '03 Oct', time: '05:00 PM', icon: '🌊', timeAgo: '3 days ago' },
   ],
 };
 
@@ -42,7 +42,7 @@ const NotificationCard: React.FC<{ item: NotificationItem }> = ({ item }) => (
   </View>
 );
 
-const NotificationsScreen: React.FC = () => {
+const RecentDrive: React.FC = () => {
   const router = useRouter();
 
   return (
@@ -139,4 +139,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default NotificationsScreen;
+export default RecentDrive;

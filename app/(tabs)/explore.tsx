@@ -39,7 +39,7 @@ const ExploreScreen: React.FC = () => {
         <View style={styles.carCard}>
           <Text style={styles.nearestCarText}>YOUR CAR</Text>
           <Image style={styles.carImage} source={require('../../resources/images/vehicle.png')} />
-          <Text style={styles.carNameText}>Fortuner GR</Text>
+          <Text style={styles.carNameText}>Total Stats</Text>
           <View style={styles.carDetailsView}>
             <View style={styles.carDetailsDataView}>
               <View style={styles.carDetailsData}>
@@ -48,11 +48,11 @@ const ExploreScreen: React.FC = () => {
               </View>
               <View style={styles.carDetailsSpaceView} />
               <View style={styles.carDetailsData}>
-                <Feather name="droplet" size={16} color="#787878" />
-                <Text style={styles.carDetailsText}>{" 50 L"}</Text>
+                <Feather name="truck" size={16} color="#787878" />
+                <Text style={styles.carDetailsText}>{"58 drives"}</Text>
               </View>
             </View>
-            <Text style={styles.carAmount}>$ 45,00/h</Text>
+            <Text style={styles.carAmount}> 102 days</Text>
           </View>
         </View>
 

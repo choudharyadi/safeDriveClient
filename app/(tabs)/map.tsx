@@ -25,17 +25,17 @@ export default function MapBox() {
 
   const notifications: { [key: string]: NotificationItem[] } = {
     Today: [
-      { type: 'invitation', title: 'VR Realm 247', date: '29 Oct', time: '07:00 PM', icon: '🏛️', timeAgo: '3m ago' },
-      { type: 'invitation_cancelled', title: 'Level 57', date: '03 Oct', time: '05:00 PM', icon: '🎮', timeAgo: '2h ago' },
+      { type: 'invitation', title: 'Drive Score 75', date: '3 Alerts', time: '25 minutes', icon: '🔴', timeAgo: '3m ago' },
+      { type: 'invitation_cancelled', title: 'Drive Score 98', date: '0 Alerts', time: '25 minutes', icon: '🟢', timeAgo: '5h ago' },
     ],
     Recently: [
-      { type: 'booking_confirmed', title: 'WE-R', date: '03 Oct', time: '05:00 PM', icon: '🌅', timeAgo: '3 days ago' },
-      { type: 'booking_cancelled', title: 'Level 57', date: '03 Oct', time: '05:00 PM', icon: '🏝️', timeAgo: '4 days ago' },
-      { type: 'booking_confirmed', title: 'Golden Gate', date: '01 Oct', time: '07:00 PM', icon: '🌉', timeAgo: '5 days ago' },
+      { type: 'booking_confirmed', title: 'Drive Score 94', date: '0 Alerts', time: '25 minutes', icon: '🟢', timeAgo: '3 days ago' },
+      { type: 'booking_cancelled', title: 'Drive Score 92', date: '0 Alerts', time: '25 minutes', icon: '🟢', timeAgo: '4 days ago' },
+      { type: 'booking_confirmed', title: 'Drive Score 82', date: '2 Alerts', time: '25 minutes', icon: '🔴', timeAgo: '5 days ago' },
     ],
     'Last week': [
-      { type: 'invitation', title: 'VR Realm 247', date: '29 Oct', time: '07:00 PM', icon: '🎭', timeAgo: '12 days ago' },
-      { type: 'booking_confirmed', title: 'VR Realm 247', date: '03 Oct', time: '05:00 PM', icon: '🌊', timeAgo: '3 days ago' },
+      { type: 'invitation', title: 'Drive Score 87', date: '1 Alerts', time: '25 minutes', icon: '🟡', timeAgo: '12 days ago' },
+      { type: 'booking_confirmed', title: 'Drive Score 100', date: '0 Alerts', time: '25 minutes', icon: '🟢', timeAgo: '3 days ago' },
     ],
   };
 

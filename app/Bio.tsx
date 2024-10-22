@@ -10,27 +10,27 @@ const BioScreen: React.FC = () => {
       <ScrollView contentContainerStyle={styles.scrollContent}>
         <View style={styles.header}>
           <TouchableOpacity style={styles.iconButton}>
-            <Feather name="settings" size={24} color="white" />
+            <Feather name="settings" size={24} color="transparent" />
           </TouchableOpacity>
           <Text style={styles.headerTitle}>Bio</Text>
           <TouchableOpacity style={styles.iconButton}>
-            <Feather name="bell" size={24} color="white" />
-            <View style={styles.notificationBadge}>
+            <Feather name="bell" size={24} color="transparent" />
+            {/* <View style={styles.notificationBadge}>
               <Text style={styles.notificationText}>25</Text>
-            </View>
+            </View> */}
           </TouchableOpacity>
         </View>
 
         <View style={styles.profileInfo}>
           <Image
-            source={{ uri: 'https://cdn-icons-png.flaticon.com/512/6858/6858504.png' }}
+            source={require('../resources/images/profile.png')}
             style={styles.avatar}
           />
           <View style={styles.cameraIconContainer}>
             <Feather name="camera" size={20} color="white" />
           </View>
-          <Text style={styles.name}>Fedelica Toraka</Text>
-          <Text style={styles.username}>@kohaku</Text>
+          <Text style={styles.name}>John Doe</Text>
+          <Text style={styles.username}>@DoeDrivng</Text>
         </View>
 
         <View style={styles.form}>
@@ -38,7 +38,7 @@ const BioScreen: React.FC = () => {
             <Text style={styles.label}>NAME</Text>
             <TextInput
               style={styles.input}
-              value="Fedelica Toraca"
+              value="John Doe"
               placeholderTextColor="#666"
             />
           </View>
@@ -47,7 +47,7 @@ const BioScreen: React.FC = () => {
             <Text style={styles.label}>EMAIL</Text>
             <TextInput
               style={styles.input}
-              value="f.toraka@gmail.com"
+              value="j.doe@gmail.com"
               placeholderTextColor="#666"
               keyboardType="email-address"
             />
@@ -70,7 +70,7 @@ const BioScreen: React.FC = () => {
           </View>
 
           <View style={styles.inputGroup}>
-            <Text style={styles.label}>ADD ANOTHER ACCOUNT</Text>
+            <Text style={styles.label}>ADD ANOTHER CONTACT</Text>
             <TouchableOpacity style={styles.addAccountButton}>
               <Feather name="plus" size={24} color="white" />
             </TouchableOpacity>
