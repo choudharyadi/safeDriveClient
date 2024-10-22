@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 const { width, height } = Dimensions.get('window');
 
-const OnboardingScreen: React.FC = () => {
+const OnboardingScreen3: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       <LinearGradient
@@ -14,7 +14,7 @@ const OnboardingScreen: React.FC = () => {
         <View style={styles.content}>
           <View style={styles.imageContainer}>
             <Image
-              source={require('../../assets/images/one.png')}
+              source={require('../../assets/images/third.png')}
               style={styles.image}
               resizeMode="contain"
             />
@@ -23,14 +23,14 @@ const OnboardingScreen: React.FC = () => {
             colors={['#20203688', '#202036']}
             style={styles.cardContainer}
           >
-            <Text style={styles.title}>Find events</Text>
+            <Text style={styles.title}>THIRD THING TO DO</Text>
             <Text style={styles.subtitle}>
               Use recommendations with filters and a map to search
             </Text>
             <View style={styles.dotContainer}>
+              <View style={styles.dot} />
+              <View style={styles.dot} />
               <View style={[styles.dot, styles.activeDot]} />
-              <View style={styles.dot} />
-              <View style={styles.dot} />
             </View>
             <TouchableOpacity style={styles.nextButton}>
               <Text style={styles.nextButtonText}>Next</Text>
@@ -125,4 +125,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default OnboardingScreen;
+export default OnboardingScreen3;
