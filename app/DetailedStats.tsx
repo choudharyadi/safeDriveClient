@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
   },
   bar: {
     width: 20,
-    backgroundColor: '#FF4081',
+    backgroundColor: '#8E8EFF',
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
   },
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#FF4081',
+    backgroundColor: '#8E8EFF',
     borderRadius: 10,
     padding: 15,
     marginTop: 10,

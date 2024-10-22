@@ -7,21 +7,21 @@ const ProfileScreen: React.FC = () => {
   const router = useRouter();
   // very real data
   const userData = {
-    name: "Fedelica Toraka",
-    username: "kohaku",
-    avatarUrl: "https://cdn-icons-png.flaticon.com/512/6858/6858504.png",
+    name: "John Doe",
+    username: "DoeDrivng",
+    avatarUrl: "safeDrive/assets/images/profile.png",
     events: 7,
-    eventsIncrease: 8,
-    invitations: 10,
-    favorites: 5,
+    eventsIncrease: 2,
+    invitations: 97,
+    favorites: 98,
     notifications: 25,
   };
 
   const menuItems = [
     { icon: 'info', text: 'Bio', screen: 'Bio' },
-    { icon: 'heart', text: 'Favourits', screen: 'Notification' }, 
-    { icon: 'users', text: 'Friends', screen: 'BioScreen' },
-    { icon: 'credit-card', text: 'Wallet', screen: 'BioScreen' },
+    // { icon: 'settings', text: 'Settings', screen: 'Notification' }, 
+    { icon: 'users', text: 'Kids', screen: 'BioScreen' },
+    // { icon: 'credit-card', text: 'Wallet', screen: 'BioScreen' },
     { icon: 'log-out', text: 'Log out', screen: 'BioScreen' },
   ];
 
@@ -46,7 +46,7 @@ const ProfileScreen: React.FC = () => {
         </View>
 
         <View style={styles.profileInfo}>
-          <Image source={{ uri: userData.avatarUrl }} style={styles.avatar} />
+          <Image source={require('../../resources/images/profile.png')} style={styles.avatar} />
           <Text style={styles.name}>{userData.name}</Text>
           <Text style={styles.username}>@{userData.username}</Text>
         </View>
@@ -59,15 +59,15 @@ const ProfileScreen: React.FC = () => {
                 <Text style={styles.statIncreaseText}>+{userData.eventsIncrease}</Text>
               </View>
             </View>
-            <Text style={styles.statLabel}>Events</Text>
+            <Text style={styles.statLabel}>Alerts</Text>
           </View>
           <View style={styles.statItem}>
             <Text style={styles.statValue}>{userData.invitations}</Text>
-            <Text style={styles.statLabel}>Invitations</Text>
+            <Text style={styles.statLabel}>Drive Score</Text>
           </View>
           <View style={styles.statItem}>
             <Text style={styles.statValue}>{userData.favorites}</Text>
-            <Text style={styles.statLabel}>Favorits</Text>
+            <Text style={styles.statLabel}>Total Drive Minutes</Text>
           </View>
         </View>
 
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
   avatar: {
     width: 100,
     height: 100,
-    borderRadius: 50,
+    borderRadius: 20,
     marginBottom: 15,
   },
   name: {
