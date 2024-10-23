@@ -30,10 +30,10 @@ export default function Setting() {
   const categories = ['All Drives', 'Last Week', 'Poor Scores', 'Long Drives'];
 
   const venues: Venue[] = [
-    { id: 1, name: 'Rahul - 0', type: 'November 15, 2024', distance: '1.5 kms', rating: 99, imageUrl: require('../../assets/images/map1.png') },
-    { id: 2, name: 'Aditya - 0', type: 'November 35, 2024', distance: '2.3 kms', rating: 98, imageUrl: require('../../assets/images/map2.png') },
-    { id: 3, name: 'Ayden - 10', type: 'Oct 12, 2024', distance: '3.0 kms', rating: 90, imageUrl: require('../../assets/images/map4.png') },
-    { id: 4, name: 'Vinil - 2', type: 'Oct 18, 2024', distance: '1.8 kms', rating: 95, imageUrl: require('../../assets/images/map3.png') },
+    { id: 1, name: 'Rahul House', type: 'September 15, 2024', distance: '1.5 kms', rating: 87, imageUrl: require('../../assets/images/map1.png') },
+    { id: 2, name: 'Aditya House', type: 'August 5, 2024', distance: '2.3 kms', rating: 77, imageUrl: require('../../assets/images/map2.png') },
+    { id: 3, name: 'Tennis Court', type: 'Oct 12, 2024', distance: '3.0 kms', rating: 63, imageUrl: require('../../assets/images/map4.png') },
+    { id: 4, name: 'Basketball Court', type: 'Oct 18, 2024', distance: '1.8 kms', rating: 88, imageUrl: require('../../assets/images/map3.png') },
   ];
 
   const [filterOptions, setFilterOptions] = useState({

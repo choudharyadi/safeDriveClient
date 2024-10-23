@@ -1,128 +1,277 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity, StyleSheet, SafeAreaView, Dimensions } from 'react-native';
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  Dimensions,
+  TextInput,
+  ScrollView,
+  Platform,
+} from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 const { width, height } = Dimensions.get('window');
 
-const OnboardingScreen2: React.FC = () => {
+interface FormData {
+  name: string;
+  email: string;
+  age: string;
+  drivingExperience: string;
+}
+
+interface SignupPageOneProps {
+  onNext: (data: FormData) => void;
+}
+
+const SignupPageOne: React.FC<SignupPageOneProps> = ({ onNext }) => {
+  const [formData, setFormData] = useState<FormData>({
+    name: '',
+    email: '',
+    age: '',
+    drivingExperience: '',
+  });
+
+  const [focusedField, setFocusedField] = useState<keyof FormData | null>(null);
+
+  const handleSubmit = () => {
+    onNext(formData);
+  };
+
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.outerContainer}>
       <LinearGradient
-        colors={['#868be4', '#868be4']}
+        colors={['#6366F1', '#4F46E5']}
         style={styles.gradient}
       >
-        <View style={styles.content}>
-          <View style={styles.imageContainer}>
-            <Image
-              source={require('../../assets/images/two.png')}
-              style={styles.image}
-              resizeMode="contain"
-            />
-          </View>
-          <LinearGradient
-            colors={['#20203688', '#202036']}
-            style={styles.cardContainer}
+        <SafeAreaView style={styles.safeArea}>
+          <ScrollView 
+            style={styles.scrollView}
+            contentContainerStyle={styles.scrollViewContent}
+            showsVerticalScrollIndicator={false}
           >
-            <Text style={styles.title}>SECOND THING TO DO</Text>
-            <Text style={styles.subtitle}>
-              Use recommendations with filters and a map to search
-            </Text>
-            <View style={styles.dotContainer}>
-              <View style={styles.dot} />
-              <View style={[styles.dot, styles.activeDot]} />
-              <View style={styles.dot} />
+            <View style={styles.content}>
+              <LinearGradient
+                colors={['rgba(255, 255, 255, 0.15)', 'rgba(255, 255, 255, 0.05)']}
+                style={styles.cardContainer}
+                start={{ x: 0, y: 0 }}
+                end={{ x: 1, y: 1 }}
+              >
+                <Text style={styles.welcomeText}>Welcome to SafeDrive!</Text>
+                <Text style={styles.title}>Create Your Account</Text>
+                
+                <View style={styles.formContainer}>
+                  <View style={styles.inputContainer}>
+                    <Text style={styles.label}>Full Name</Text>
+                    <TextInput
+                      style={[
+                        styles.input,
+                        focusedField === 'name' && styles.inputFocused
+                      ]}
+                      placeholder="John Doe"
+                      placeholderTextColor="rgba(255, 255, 255, 0.5)"
+                      value={formData.name}
+                      onChangeText={(text) => setFormData({ ...formData, name: text })}
+                      onFocus={() => setFocusedField('name')}
+                      onBlur={() => setFocusedField(null)}
+                    />
+                  </View>
+
+                  <View style={styles.inputContainer}>
+                    <Text style={styles.label}>Email Address</Text>
+                    <TextInput
+                      style={[
+                        styles.input,
+                        focusedField === 'email' && styles.inputFocused
+                      ]}
+                      placeholder="you@example.com"
+                      placeholderTextColor="rgba(255, 255, 255, 0.5)"
+                      keyboardType="email-address"
+                      value={formData.email}
+                      onChangeText={(text) => setFormData({ ...formData, email: text })}
+                      onFocus={() => setFocusedField('email')}
+                      onBlur={() => setFocusedField(null)}
+                      autoCapitalize="none"
+                    />
+                  </View>
+
+                  <View style={styles.rowContainer}>
+                    <View style={[styles.inputContainer, styles.halfWidth]}>
+                      <Text style={styles.label}>Age</Text>
+                      <TextInput
+                        style={[
+                          styles.input,
+                          focusedField === 'age' && styles.inputFocused
+                        ]}
+                        placeholder="25"
+                        placeholderTextColor="rgba(255, 255, 255, 0.5)"
+                        keyboardType="numeric"
+                        value={formData.age}
+                        onChangeText={(text) => setFormData({ ...formData, age: text })}
+                        onFocus={() => setFocusedField('age')}
+                        onBlur={() => setFocusedField(null)}
+                      />
+                    </View>
+
+                    <View style={[styles.inputContainer, styles.halfWidth]}>
+                      <Text style={styles.label}>Driving Experience</Text>
+                      <TextInput
+                        style={[
+                          styles.input,
+                          focusedField === 'drivingExperience' && styles.inputFocused
+                        ]}
+                        placeholder="5 years"
+                        placeholderTextColor="rgba(255, 255, 255, 0.5)"
+                        keyboardType="numeric"
+                        value={formData.drivingExperience}
+                        onChangeText={(text) => setFormData({ ...formData, drivingExperience: text })}
+                        onFocus={() => setFocusedField('drivingExperience')}
+                        onBlur={() => setFocusedField(null)}
+                      />
+                    </View>
+                  </View>
+                </View>
+
+                <TouchableOpacity 
+                  style={styles.nextButton}
+                  onPress={handleSubmit}
+                  activeOpacity={0.8}
+                >
+                  <LinearGradient
+                    colors={['#9333EA', '#7E41FF']}
+                    style={styles.buttonGradient}
+                    start={{ x: 0, y: 0 }}
+                    end={{ x: 1, y: 0 }}
+                  >
+                    <Text style={styles.nextButtonText}>Continue</Text>
+                  </LinearGradient>
+                </TouchableOpacity>
+              </LinearGradient>
             </View>
-            <TouchableOpacity style={styles.nextButton}>
-              <Text style={styles.nextButtonText}>Next</Text>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <Text style={styles.skipText}>Skip</Text>
-            </TouchableOpacity>
-          </LinearGradient>
-        </View>
+          </ScrollView>
+        </SafeAreaView>
       </LinearGradient>
-    </SafeAreaView>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  outerContainer: {
     flex: 1,
-    backgroundColor: '#868be4', 
+    backgroundColor: '#171721',
   },
   gradient: {
     flex: 1,
   },
+  safeArea: {
+    flex: 1,
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollViewContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
+  },
   content: {
     flex: 1,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  imageContainer: {
-    width: width,
-    height: height * 0.5,
     justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 40,
-  },
-  image: {
-    width: '100%',
-    height: '100%',
+    paddingHorizontal: 20,
+    backgroundColor: 'transparent',
   },
   cardContainer: {
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    padding: 40,
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderRadius: 30,
+    padding: 24,
     width: '100%',
-    alignItems: 'center',
-    height: height * 0.5,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    ...Platform.select({
+      ios: {
+        shadowColor: 'rgba(0, 0, 0, 0.3)',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 8,
+      },
+      android: {
+        elevation: 8,
+      },
+    }),
+  },
+  welcomeText: {
+    fontSize: 20,
+    color: '#FFFFFF',
+    marginBottom: 8,
+    textAlign: 'center',
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
     color: '#FFFFFF',
-    marginBottom: 10,
-  },
-  subtitle: {
-    fontSize: 14,
-    color: '#8F90A6',
+    marginBottom: 32,
     textAlign: 'center',
+  },
+  formContainer: {
+    marginBottom: 24,
+  },
+  inputContainer: {
     marginBottom: 20,
   },
-  dotContainer: {
+  rowContainer: {
     flexDirection: 'row',
-    marginBottom: 20,
+    justifyContent: 'space-between',
   },
-  dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: '#FFFFFF',
-    marginHorizontal: 4,
-    opacity: 0.5,
+  halfWidth: {
+    width: '48%',
   },
-  activeDot: {
-    opacity: 1,
-    backgroundColor: '#FFFFFF',
+  label: {
+    color: '#FFFFFF',
+    fontSize: 14,
+    fontWeight: '600',
+    marginBottom: 8,
+  },
+  input: {
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.2)',
+    borderRadius: 12,
+    padding: 16,
+    color: '#FFFFFF',
+    fontSize: 16,
+  },
+  inputFocused: {
+    borderColor: '#9333EA',
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    ...Platform.select({
+      ios: {
+        shadowColor: '#9333EA',
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+      },
+      android: {
+        elevation: 2,
+      },
+    }),
   },
   nextButton: {
-    backgroundColor: '#7E41FF',
-    paddingVertical: 15,
-    paddingHorizontal: 40,
-    borderRadius: 25,
-    marginBottom: 15,
     width: '100%',
+    height: 56,
+    borderRadius: 28,
+    overflow: 'hidden',
+  },
+  buttonGradient: {
+    width: '100%',
+    height: '100%',
     alignItems: 'center',
+    justifyContent: 'center',
   },
   nextButtonText: {
     color: '#FFFFFF',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
-  },
-  skipText: {
-    color: '#8F90A6',
-    fontSize: 14,
   },
 });
 
-export default OnboardingScreen2;
+export default SignupPageOne;
